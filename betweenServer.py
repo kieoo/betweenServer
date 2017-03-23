@@ -122,9 +122,15 @@ class MyRequestHandlerCut(StreamRequestHandler):
                 if not int_data:
                     break
                 print("receive from %r: %r" % (self.client_address, int_data.strip()))
-                cut_content = raw_input('--------------if cut the content? y/n ').strip()
+                try:
+                    cut_content = input('--------------if cut the content? y/n ').strip()
+                except:
+                    cut_content = raw_input('--------------if cut the content? y/n ').strip()
                 if cut_content == 'y':
-                    send_len = int(raw_input('how much bytes before cut(total: %d): ' % len(int_data.strip())).strip())
+                    try:
+                        send_len = int(input('how much bytes before cut(total: %d): ' % len(int_data.strip())).strip())
+                    except:
+                        send_len = int(raw_input('how much bytes before cut(total: %d): ' % len(int_data.strip())).strip())
                     # send_data = struct.unpack('%ds%ds' % (send_len, len(int_data)-send_len), int_data)
                     send_data = int_data[0:send_len]
                     print("send data : %r" % send_data)
